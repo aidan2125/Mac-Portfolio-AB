@@ -1,0 +1,161 @@
+/* ===== LinkedIn App Base ===== */
+.linkedin-app {
+  height: 100%;
+  overflow-y: auto;
+  background: #f3f2ef;
+  color: #1d2226;
+}
+
+/* Dark mode */
+.dark .linkedin-app {
+  background: #1b1f23;
+  color: #ffffff;
+}
+
+/* ===== Container ===== */
+.linkedin-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* ===== Card ===== */
+.linkedin-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.dark .linkedin-card {
+  background: #111418;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ===== Banner ===== */
+.linkedin-banner {
+  height: 160px;
+  background: linear-gradient(90deg, #0a66c2, #38bdf8);
+}
+
+/* ===== Profile Section ===== */
+.linkedin-profile {
+  padding: 1.5rem;
+  margin-top: -60px;
+}
+
+.linkedin-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: #d9e8ff;
+  border: 4px solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #0a66c2;
+}
+
+.dark .linkedin-avatar {
+  border-color: #111418;
+  background: #233041;
+  color: white;
+}
+
+/* ===== Headings ===== */
+.linkedin-name {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.linkedin-headline {
+  color: rgba(0, 0, 0, 0.7);
+  margin-top: 4px;
+}
+
+.dark .linkedin-headline {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ===== Buttons ===== */
+.linkedin-btn-primary {
+  background: #0a66c2;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.linkedin-btn-primary:hover {
+  opacity: 0.9;
+}
+
+.linkedin-btn-outline {
+  border: 1px solid #0a66c2;
+  color: #0a66c2;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  transition: 0.2s;
+}
+
+.linkedin-btn-outline:hover {
+  background: rgba(10, 102, 194, 0.1);
+}
+
+/* ===== Sections ===== */
+.linkedin-section {
+  background: #ffffff;
+  padding: 1.2rem;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.dark .linkedin-section {
+  background: #161b22;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.linkedin-section h2 {
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+}
+
+/* ===== Skills ===== */
+.linkedin-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.linkedin-skill {
+  background: rgba(0, 0, 0, 0.05);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+.dark .linkedin-skill {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ===== Project Cards ===== */
+.linkedin-project {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  padding: 1rem;
+  transition: 0.2s;
+}
+
+.linkedin-project:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.dark .linkedin-project {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}

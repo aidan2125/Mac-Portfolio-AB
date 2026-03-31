@@ -10,7 +10,7 @@ const apps: AppsData[] = [
   },
   {
     id: "bear",
-    title: "Bear",
+    title: "Notebook",
     desktop: true,
     width: 860,
     height: 500,
@@ -20,14 +20,11 @@ const apps: AppsData[] = [
     content: <Bear />
   },
   {
-    id: "typora",
-    title: "Typora",
+    id: "linkedin",
+    title: "LinkedIn",
     desktop: true,
-    width: 600,
-    height: 580,
-    y: -20,
-    img: "img/icons/typora.png",
-    content: <Typora />
+    img: "img/icons/linkedin.png",
+    content: <LinkedIn />
   },
   {
     id: "safari",
@@ -76,8 +73,8 @@ const apps: AppsData[] = [
     id: "github",
     title: "Github",
     desktop: false,
-    img: "img/icons/github.png",
-    link: "https://github.com/Renovamen/playground-macos"
+    img: "public/img/icons/github (copy).png",
+    link: "https://github.com/aidan2125"
   }
 ];
 

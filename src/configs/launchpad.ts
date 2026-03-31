@@ -2,65 +2,41 @@ import type { LaunchpadData } from "~/types";
 
 const launchpadApps: LaunchpadData[] = [
   {
-    id: "flint",
-    title: "Flint",
-    img: "img/icons/launchpad/flint.png",
-    link: "https://github.com/Renovamen/flint"
+    id: "planeview",
+    title: "Planeview",
+    img: "/img/icons/launchpad/Plane View Collective Logos-02.png",
+    link: "https://planeview.co.za"
   },
   {
-    id: "oh-my-cv",
-    title: "Oh, My CV!",
-    img: "https://ohmycv.app/pwa-512x512.png",
-    link: "https://ohmycv.app"
+    id: "chemcrete",
+    title: "Chemcrete",
+    img: "/img/icons/launchpad/Chemcrete Logos.webp",
+    link: "#"
   },
   {
-    id: "oh-vue-icons",
-    title: "Oh, Vue Icons!",
-    img: "img/icons/launchpad/oh-vue-icons.png",
-    link: "https://oh-vue-icons.js.org"
+    id: "unexpected",
+    title: "Unexpected",
+    img: "/img/icons/launchpad/unexpected.png",
+    link: "#"
   },
   {
-    id: "gungnir",
-    title: "Gungnir",
-    img: "img/icons/launchpad/gungnir.png",
-    link: "https://vuepress-theme-gungnir.vercel.app/"
-  },
-  // {
-  //   id: "metallic",
-  //   title: "Metallic",
-  //   img: "img/icons/launchpad/meta.png",
-  //   link: "https://github.com/Renovamen/metallic"
-  // },
-  {
-    id: "what-if",
-    title: "My Notebook",
-    img: "img/icons/launchpad/notebook.png",
-    link: "https://note.zxh.io"
-  },
-  {
-    id: "cube",
-    title: "Cube Solver",
-    img: "img/icons/launchpad/cube.png",
-    link: "https://cube.zxh.io/"
+    id: "linkedin",
+    title: "LinkedIn",
+    img: "/img/icons/launchpad/linkedin.png",
+    link: "https://linkedin.com/in/your-profile"
   },
   {
     id: "resume",
-    title: "Résumé",
-    img: "img/icons/launchpad/resume.png",
-    link: "https://resume.zxh.io/"
+    title: "Resume",
+    img: "/img/icons/launchpad/resume.png",
+    link: "/resume.pdf"
   },
   {
-    id: "zelda",
-    title: "Webpage for Zelda",
-    img: "img/icons/launchpad/zelda.png",
-    link: "https://zelda.zxh.io/"
-  },
-  {
-    id: "fishmail",
-    title: "Fishmail",
-    img: "img/icons/launchpad/fishmail.png",
-    link: "https://fishmail.vercel.app/"
+    id: "contact",
+    title: "Contact",
+    img: "/img/icons/launchpad/contact.png",
+    link: "mailto:your@email.com"
   }
 ];
 
-export default launchpadApps;
+export default launchpadApps; // Fixed typo: was "launchpadApp"

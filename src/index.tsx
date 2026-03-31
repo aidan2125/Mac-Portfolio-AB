@@ -4,13 +4,17 @@ import { createRoot } from "react-dom/client";
 import Desktop from "~/pages/Desktop";
 import Login from "~/pages/Login";
 import Boot from "~/pages/Boot";
-
+import MobilePortfolio from "~/pages/MobilePortfolio";
+import { useWindowSize } from "~/hooks";
 import "@unocss/reset/tailwind.css";
 import "uno.css";
 import "katex/dist/katex.min.css";
 import "~/styles/index.css";
 
 export default function App() {
+  const { winWidth } = useWindowSize();
+  const isMobile = winWidth < 768;
+
   const [login, setLogin] = useState<boolean>(false);
   const [booting, setBooting] = useState<boolean>(false);
   const [restart, setRestart] = useState<boolean>(false);
@@ -43,7 +47,9 @@ export default function App() {
   if (booting) {
     return <Boot restart={restart} sleep={sleep} setBooting={setBooting} />;
   } else if (login) {
-    return (
+    return isMobile ? (
+      <MobilePortfolio />
+    ) : (
       <Desktop
         setLogin={setLogin}
         shutMac={shutMac}

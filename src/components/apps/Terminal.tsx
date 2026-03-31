@@ -1,111 +1,58 @@
 import React from "react";
-import { terminal } from "~/configs";
-import type { TerminalData } from "~/types";
 
-const CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789落霞与孤鹜齐飞秋水共长天一色";
-const EMOJIS = ["\\(o_o)/", "(˚Δ˚)b", "(^-^*)", "(╯‵□′)╯", "\\(°ˊДˋ°)/", "╰(‵□′)╯"];
+interface TerminalState {
+  content: JSX.Element[];
+  prank: boolean;
+}
+
+const EMOJIS = ["(¬_¬)", "(^_^)", "(^_~)", "(>_<)", "(•‿•)"];
 
 const getEmoji = () => {
   return EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
 };
 
-interface TerminalState {
-  rmrf: boolean;
-  content: JSX.Element[];
-}
-
-// rain animation is adopted from: https://codepen.io/P3R0/pen/MwgoKv
-const HowDare = ({ setRMRF }: { setRMRF: (value: boolean) => void }) => {
-  const FONT_SIZE = 12;
-
-  const [emoji, setEmoji] = useState("");
-  const [drops, setDrops] = useState<number[]>([]);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const container = containerRef.current;
-    const canvas = canvasRef.current;
-
-    if (!container || !canvas) return;
-
-    canvas.height = container.offsetHeight;
-    canvas.width = container.offsetWidth;
-
-    const columns = Math.floor(canvas.width / FONT_SIZE);
-    setDrops(Array(columns).fill(1));
-
-    setEmoji(getEmoji());
-  }, []);
-
-  const rain = () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d")!;
-
-    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    ctx.fillStyle = "#2e9244";
-    ctx.font = `${FONT_SIZE}px arial`;
-
-    drops.forEach((y, x) => {
-      const text = CHARACTERS[Math.floor(Math.random() * CHARACTERS.length)];
-      ctx.fillText(text, x * FONT_SIZE, y * FONT_SIZE);
-    });
-
-    setDrops(
-      drops.map((y) => {
-        // sends the drop back to the top randomly after it has crossed the screen
-        // adding randomness to the reset to make the drops scattered on the Y axis
-        if (y * FONT_SIZE > canvas.height && Math.random() > 0.975) return 1;
-        // increments Y coordinate
-        else return y + 1;
-      })
-    );
-  };
-
-  useInterval(rain, 33);
+const HowDare = ({ close }: { close: () => void }) => {
+  const [emoji] = React.useState(getEmoji());
 
   return (
     <div
-      ref={containerRef}
-      className="fixed size-full bg-black text-white"
-      onClick={() => setRMRF(false)}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black text-white"
+      onClick={close}
     >
-      <canvas ref={canvasRef}></canvas>
-      <div className="font-avenir absolute h-28 text-center space-y-4 m-auto inset-0">
-        <div text-4xl>{emoji}</div>
-        <div text-3xl>HOW DARE YOU!</div>
-        <div>Click to go back</div>
+      <div className="space-y-4 text-center">
+        <div className="text-4xl">{emoji}</div>
+        <div className="text-3xl font-semibold">Nice try.</div>
+        <div className="text-sm text-white/70">Click anywhere to go back.</div>
       </div>
     </div>
   );
 };
 
 export default class Terminal extends React.Component<{}, TerminalState> {
-  private history = [] as string[];
+  private history: string[] = [];
   private curHistory = 0;
   private curInputTimes = 0;
-  private curDirPath = [] as any;
-  private curChildren = terminal as any;
-  private commands: {
-    [key: string]: { (): void } | { (arg?: string): void };
-  };
+
+  private commands: Record<string, (arg?: string) => void>;
 
   constructor(props: {}) {
     super(props);
+
     this.state = {
       content: [],
-      rmrf: false
+      prank: false
     };
+
     this.commands = {
-      cd: this.cd,
-      ls: this.ls,
-      cat: this.cat,
-      clear: this.clear,
-      help: this.help
+      help: this.help,
+      about: this.about,
+      skills: this.skills,
+      experience: this.experience,
+      projects: this.projects,
+      contact: this.contact,
+      socials: this.socials,
+      resume: this.resume,
+      clear: this.clear
     };
   }
 
@@ -115,272 +62,353 @@ export default class Terminal extends React.Component<{}, TerminalState> {
   }
 
   reset = () => {
-    const terminal = document.querySelector("#terminal-content") as HTMLElement;
-    terminal.innerHTML = "";
+    const terminal = document.querySelector("#terminal-content") as HTMLElement | null;
+    if (terminal) terminal.innerHTML = "";
   };
 
   addRow = (row: JSX.Element) => {
-    if (this.state.content.find((item) => item.key === row.key)) return;
-
-    const content = this.state.content;
-    content.push(row);
-    this.setState({ content });
+    this.setState((prev) => ({
+      content: [...prev.content, row]
+    }));
   };
 
-  getCurDirName = () => {
-    if (this.curDirPath.length === 0) return "~";
-    else return this.curDirPath[this.curDirPath.length - 1];
-  };
-
-  getCurChildren = () => {
-    let children = terminal as any;
-    for (const name of this.curDirPath) {
-      children = children.find((item: TerminalData) => {
-        return item.title === name && item.type === "folder";
-      }).children;
-    }
-    return children;
-  };
-
-  // move into a specified folder
-  cd = (args?: string) => {
-    if (args === undefined || args === "~") {
-      // move to root
-      this.curDirPath = [];
-      this.curChildren = terminal;
-    } else if (args === ".") {
-      // stay in the current folder
-      return;
-    } else if (args === "..") {
-      // move to parent folder
-      if (this.curDirPath.length === 0) return;
-      this.curDirPath.pop();
-      this.curChildren = this.getCurChildren();
-    } else {
-      // move to certain child folder
-      const target = this.curChildren.find((item: TerminalData) => {
-        return item.title === args && item.type === "folder";
-      });
-      if (target === undefined) {
-        this.generateResultRow(
-          this.curInputTimes,
-          <span>{`cd: no such file or directory: ${args}`}</span>
-        );
-      } else {
-        this.curChildren = target.children;
-        this.curDirPath.push(target.title);
-      }
-    }
-  };
-
-  // display content of a specified folder
-  ls = () => {
-    const result = [];
-    for (const item of this.curChildren) {
-      result.push(
-        <span
-          key={`terminal-result-ls-${this.curInputTimes}-${item.id}`}
-          className={`${item.type === "file" ? "text-white" : "text-purple-300"}`}
-        >
-          {item.title}
-        </span>
-      );
-    }
-    this.generateResultRow(
-      this.curInputTimes,
-      <div className="grid grid-cols-4 w-full">{result}</div>
-    );
-  };
-
-  // display content of a specified file
-  cat = (args?: string) => {
-    const file = this.curChildren.find((item: TerminalData) => {
-      return item.title === args && item.type === "file";
-    });
-
-    if (file === undefined) {
-      this.generateResultRow(
-        this.curInputTimes,
-        <span>{`cat: ${args}: No such file or directory`}</span>
-      );
-    } else {
-      this.generateResultRow(this.curInputTimes, <span>{file.content}</span>);
-    }
-  };
-
-  // clear terminal
-  clear = () => {
-    this.curInputTimes += 1;
-    this.reset();
+  getPromptName = () => {
+    return "~";
   };
 
   help = () => {
     const help = (
-      <ul className="list-disc ml-6 pb-1.5">
+      <ul className="ml-6 list-disc pb-1.5 space-y-1">
         <li>
-          <span text-red-400>cat {"<file>"}</span> - See the content of {"<file>"}
+          <span className="text-red-400">about</span> - Learn more about me
         </li>
         <li>
-          <span text-red-400>cd {"<dir>"}</span> - Move into
-          {" <dir>"}, "cd .." to move to the parent directory, "cd" or "cd ~" to return to
-          root
+          <span className="text-red-400">skills</span> - View my technical skills
         </li>
         <li>
-          <span text-red-400>ls</span> - See files and directories in the current
-          directory
+          <span className="text-red-400">experience</span> - View my work experience
         </li>
         <li>
-          <span text-red-400>clear</span> - Clear the screen
+          <span className="text-red-400">projects</span> - See featured projects
         </li>
         <li>
-          <span text-red-400>help</span> - Display this help menu
+          <span className="text-red-400">contact</span> - Get my contact info
         </li>
         <li>
-          <span text-red-400>rm -rf /</span> - :)
+          <span className="text-red-400">socials</span> - View my links
         </li>
         <li>
-          press <span text-red-400>up arrow / down arrow</span> - Select history commands
+          <span className="text-red-400">resume</span> - Quick résumé summary
         </li>
         <li>
-          press <span text-red-400>tab</span> - Auto complete
+          <span className="text-red-400">clear</span> - Clear the terminal
+        </li>
+        <li>
+          Press <span className="text-red-400">↑ / ↓</span> for command history
+        </li>
+        <li>
+          Press <span className="text-red-400">tab</span> for autocomplete
         </li>
       </ul>
     );
+
     this.generateResultRow(this.curInputTimes, help);
+  };
+
+  about = () => {
+    this.generateResultRow(
+      this.curInputTimes,
+      <div className="space-y-2">
+        <p>
+          I'm Aidan Botha, a motivated and adaptable individual with a growing passion for
+          technology, problem solving, and building useful digital experiences.
+        </p>
+        <p>
+          I'm especially interested in frontend development, UX/UI, digital products, and
+          creating work that is both visually clean and functional.
+        </p>
+      </div>
+    );
+  };
+
+  skills = () => {
+    this.generateResultRow(
+      this.curInputTimes,
+      <div className="grid w-full grid-cols-2 gap-y-1 sm:grid-cols-3">
+        {[
+          "React",
+          "Astro",
+          "JavaScript",
+          "Tailwind CSS",
+          "Node.js",
+          "WordPress",
+          "WooCommerce",
+          "SEO",
+          "Supabase",
+          "UI/UX Design",
+          "CRM / Automation",
+          "Web Development"
+        ].map((skill) => (
+          <span key={`skill-${skill}`} className="text-green-300">
+            {skill}
+          </span>
+        ))}
+      </div>
+    );
+  };
+
+  experience = () => {
+    this.generateResultRow(
+      this.curInputTimes,
+      <div className="space-y-4">
+        <div>
+          <div className="text-yellow-200">
+            Information Technology Intern — Innovo Networks
+          </div>
+          <div className="text-white/70 text-xs">
+            Jul 2025 - Mar 2026 · Cape Town, South Africa
+          </div>
+          <div>
+            WordPress, WooCommerce, SEO, landing pages, CRM setup, workflow automation,
+            and client-facing web support.
+          </div>
+        </div>
+
+        <div>
+          <div className="text-yellow-200">Digital Associate — CAPACITI</div>
+          <div className="text-white/70 text-xs">
+            Dec 2024 - Jul 2025 · Western Cape, South Africa
+          </div>
+          <div>
+            Worked on a job portal platform, contributed to frontend and system design,
+            presented solutions, and collaborated in a development team.
+          </div>
+        </div>
+
+        <div>
+          <div className="text-yellow-200">Sales Assistant — Toy Kingdom</div>
+          <div className="text-white/70 text-xs">Nov 2023 - Aug 2024</div>
+          <div>
+            Customer service, pricing updates, stock handling, and daily store operations.
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  projects = () => {
+    this.generateResultRow(
+      this.curInputTimes,
+      <div className="space-y-3">
+        <div>
+          <span className="text-purple-300">Planeview</span> — Digital portfolio and
+          agency presence focused on branding, websites, and visual storytelling.
+        </div>
+        <div>
+          <span className="text-purple-300">Travique</span> — Smart travel assistant
+          platform with trip planning, maps, and saved trip features.
+        </div>
+        <div>
+          <span className="text-purple-300">Chemcrete</span> — Case study and digital
+          identity work for a concrete specialist brand.
+        </div>
+        <div>
+          <span className="text-purple-300">Unexpected Opportunities</span> — NGO-focused
+          brand and web direction project.
+        </div>
+      </div>
+    );
+  };
+
+  contact = () => {
+    this.generateResultRow(
+      this.curInputTimes,
+      <div className="space-y-1">
+        <div>
+          Email: <span className="text-green-300">aidanbotha15@mail.com</span>
+        </div>
+        <div>
+          Location: <span className="text-green-300">Cape Town, South Africa</span>
+        </div>
+      </div>
+    );
+  };
+
+  socials = () => {
+    this.generateResultRow(
+      this.curInputTimes,
+      <div className="space-y-1">
+        <div>
+          LinkedIn:{" "}
+          <a
+            href="https://www.linkedin.com/in/aidan-botha-68399a191/"
+            target="_blank"
+            rel="noreferrer"
+            className="text-blue-300 underline"
+          >
+            aidan-botha-68399a191
+          </a>
+        </div>
+        <div>
+          GitHub:{" "}
+          <a
+            href="https://github.com/aidan2125"
+            target="_blank"
+            rel="noreferrer"
+            className="text-blue-300 underline"
+          >
+            aidan2125
+          </a>
+        </div>
+        <div>
+          Website:{" "}
+          <a
+            href="https://planeview.co.za"
+            target="_blank"
+            rel="noreferrer"
+            className="text-blue-300 underline"
+          >
+            planeview.co.za
+          </a>
+        </div>
+      </div>
+    );
+  };
+
+  resume = () => {
+    this.generateResultRow(
+      this.curInputTimes,
+      <div className="space-y-2">
+        <div>
+          <span className="text-yellow-200">Focus:</span> Frontend Development, UX/UI, Web
+          Experiences, Product Thinking
+        </div>
+        <div>
+          <span className="text-yellow-200">Education:</span> Higher Certificate in
+          Information Technology
+        </div>
+        <div>
+          <span className="text-yellow-200">Current Direction:</span> Building practical
+          experience through real projects, client work, and digital products
+        </div>
+      </div>
+    );
+  };
+
+  clear = () => {
+    this.curInputTimes += 1;
+    this.reset();
+    this.setState({ content: [] });
   };
 
   autoComplete = (text: string) => {
     if (text === "") return text;
 
-    const input = text.split(" ");
-    const cmd = input[0];
-    const args = input[1];
+    const guess = Object.keys(this.commands).find((item) => item.startsWith(text));
 
-    let result = text;
-
-    if (args === undefined) {
-      const guess = Object.keys(this.commands).find((item) => {
-        return item.substring(0, cmd.length) === cmd;
-      });
-      if (guess !== undefined) result = guess;
-    } else if (cmd === "cd" || cmd === "cat") {
-      const type = cmd === "cd" ? "folder" : "file";
-      const guess = this.curChildren.find((item: TerminalData) => {
-        return item.type === type && item.title.substring(0, args.length) === args;
-      });
-      if (guess !== undefined) result = cmd + " " + guess.title;
-    }
-    return result;
+    return guess ?? text;
   };
 
   keyPress = (e: React.KeyboardEvent) => {
     const keyCode = e.key;
     const inputElement = document.querySelector(
       `#terminal-input-${this.curInputTimes}`
-    ) as HTMLInputElement;
+    ) as HTMLInputElement | null;
+
+    if (!inputElement) return;
+
     const inputText = inputElement.value.trim();
-    const input = inputText.split(" ");
 
     if (keyCode === "Enter") {
-      // ----------- run command -----------
       this.history.push(inputText);
 
-      const cmd = input[0];
-      const args = input[1];
-
-      // we can't edit the past input
       inputElement.setAttribute("readonly", "true");
 
-      if (inputText.substring(0, 6) === "rm -rf") this.setState({ rmrf: true });
-      else if (cmd && Object.keys(this.commands).includes(cmd)) {
-        this.commands[cmd](args);
-      } else {
+      if (inputText === "rm -rf /" || inputText.startsWith("sudo rm")) {
+        this.setState({ prank: true });
+      } else if (inputText && this.commands[inputText]) {
+        this.commands[inputText]();
+      } else if (inputText !== "") {
         this.generateResultRow(
           this.curInputTimes,
-          <span>{`zsh: command not found: ${cmd}`}</span>
+          <span>{`command not found: ${inputText}`}</span>
         );
       }
 
-      // point to the last history command
       this.curHistory = this.history.length;
-
-      // generate new input row
       this.curInputTimes += 1;
       this.generateInputRow(this.curInputTimes);
     } else if (keyCode === "ArrowUp") {
-      // ----------- previous history command -----------
       if (this.history.length > 0) {
         if (this.curHistory > 0) this.curHistory--;
-        const historyCommand = this.history[this.curHistory];
-        inputElement.value = historyCommand;
+        inputElement.value = this.history[this.curHistory] ?? "";
       }
     } else if (keyCode === "ArrowDown") {
-      // ----------- next history command -----------
       if (this.history.length > 0) {
         if (this.curHistory < this.history.length) this.curHistory++;
-        if (this.curHistory === this.history.length) inputElement.value = "";
-        else {
-          const historyCommand = this.history[this.curHistory];
-          inputElement.value = historyCommand;
-        }
+        inputElement.value =
+          this.curHistory === this.history.length
+            ? ""
+            : this.history[this.curHistory] ?? "";
       }
     } else if (keyCode === "Tab") {
-      // ----------- auto complete -----------
       inputElement.value = this.autoComplete(inputText);
-      // prevent tab outside the terminal
       e.preventDefault();
     }
   };
 
   focusOnInput = (id: number) => {
-    const input = document.querySelector(`#terminal-input-${id}`) as HTMLInputElement;
-    input.focus();
+    const input = document.querySelector(
+      `#terminal-input-${id}`
+    ) as HTMLInputElement | null;
+    input?.focus();
   };
 
   generateInputRow = (id: number) => {
     const newRow = (
-      <div key={`terminal-input-row-${id}`} flex>
-        <div className="w-max hstack space-x-1.5">
-          <span text-yellow-200>
-            zou@macbook-pro <span text-green-300>{this.getCurDirName()}</span>
+      <div key={`terminal-input-row-${id}`} className="flex">
+        <div className="flex w-max items-center space-x-1.5">
+          <span className="text-yellow-200">
+            aidan@portfolio <span className="text-green-300">{this.getPromptName()}</span>
           </span>
-          <span text-red-400>{">"}</span>
+          <span className="text-red-400">{">"}</span>
         </div>
         <input
           id={`terminal-input-${id}`}
-          className="flex-1 px-1 text-white outline-none bg-transparent"
+          className="flex-1 bg-transparent px-1 text-white outline-none"
           onKeyDown={this.keyPress}
-          autoFocus={true}
+          autoFocus
         />
       </div>
     );
+
     this.addRow(newRow);
   };
 
   generateResultRow = (id: number, result: JSX.Element) => {
     const newRow = (
-      <div key={`terminal-result-row-${id}`} break-all>
+      <div key={`terminal-result-row-${id}`} className="break-all">
         {result}
       </div>
     );
+
     this.addRow(newRow);
   };
 
   render() {
     return (
       <div
-        className="terminal font-terminal font-normal relative h-full bg-gray-800/90 overflow-y-scroll"
-        text="white sm"
+        className="terminal relative h-full overflow-y-scroll bg-gray-800/90 font-normal text-sm text-white"
         onClick={() => this.focusOnInput(this.curInputTimes)}
       >
-        {this.state.rmrf && (
-          <HowDare setRMRF={(value: boolean) => this.setState({ rmrf: value })} />
-        )}
-        <div p="y-2 x-1.5">
-          <span className="text-green-300">ヽ(ˋ▽ˊ)ノ</span>: Hey, you found the terminal!
-          Type `help` to get started.
+        {this.state.prank && <HowDare close={() => this.setState({ prank: false })} />}
+
+        <div className="px-1.5 py-2">
+          <span className="text-green-300">Aidan Terminal</span>: Type{" "}
+          <span className="text-yellow-200">help</span> to explore my profile.
         </div>
-        <div id="terminal-content" p="x-1.5 b-2">
+
+        <div id="terminal-content" className="px-1.5 pb-2">
           {this.state.content}
         </div>
       </div>

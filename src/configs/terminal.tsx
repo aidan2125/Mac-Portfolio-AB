@@ -13,8 +13,9 @@ const terminal: TerminalData[] = [
         content: (
           <div className="py-1">
             <div>
-              Hi, this is Xiaohan Zou. I am a PhD student at the Computer Science and
-              Engineering department of Pennsylvania State University.
+              Hi, I'm Aidan Botha. I'm a Software Developer & IT Technician based in Cape
+              Town, South Africa. I'm currently pursuing a BCOM in Information Technology
+              and passionate about building meaningful digital solutions.
             </div>
           </div>
         )
@@ -23,14 +24,15 @@ const terminal: TerminalData[] = [
         id: "about-interests",
         title: "interests.txt",
         type: "file",
-        content: "Machine Learning / Computer Vision / Multimodal Learning"
+        content:
+          "Exploring new technologies / Gaming & Football / Fitness & gym routines / Learning through practical projects"
       },
       {
-        id: "about-who-cares",
-        title: "who-cares.txt",
+        id: "about-qualifications",
+        title: "qualifications.txt",
         type: "file",
         content:
-          "I'm looking for a research internship for Summer 2024. I'm open to collaboration on research projects."
+          "Higher Certificate in Information Technology | Pursuing BCOM in Information Technology | Grade 12 – The Settlers High School, Bellville"
       },
       {
         id: "about-contact",
@@ -42,67 +44,42 @@ const terminal: TerminalData[] = [
               Email:{" "}
               <a
                 className="text-blue-300"
-                href="mailto:renovamenzxh@gmail.com"
+                href="mailto:aidanbotha15@mail.com"
                 target="_blank"
                 rel="noreferrer"
               >
-                renovamenzxh@gmail.com
+                aidanbotha15@mail.com
+              </a>
+            </li>
+            <li>
+              Phone:{" "}
+              <a className="text-blue-300" href="tel:+27839669392">
+                083 966 9392
               </a>
             </li>
             <li>
               Github:{" "}
               <a
                 className="text-blue-300"
-                href="https://github.com/Renovamen"
+                href="https://github.com/aidan2125"
                 target="_blank"
                 rel="noreferrer"
               >
-                @Renovamen
+                @aidan2125
               </a>
             </li>
             <li>
+              LinkedIn:{" "}
               <a
                 className="text-blue-300"
-                href="https://scholar.google.com/citations?user=RuW6xgMAAAAJ"
+                href="https://www.linkedin.com/in/aidan-botha-68399a191/"
                 target="_blank"
                 rel="noreferrer"
               >
-                Google Scholar
+                aidan-botha
               </a>
             </li>
-            <li>
-              Linkedin:{" "}
-              <a
-                className="text-blue-300"
-                href="https://www.linkedin.com/in/xiaohan-zou"
-                target="_blank"
-                rel="noreferrer"
-              >
-                xiaohan-zou
-              </a>
-            </li>
-            <li>
-              Personal Website:{" "}
-              <a
-                className="text-blue-300"
-                href="https://zxh.me"
-                target="_blank"
-                rel="noreferrer"
-              >
-                https://zxh.me
-              </a>
-            </li>
-            <li>
-              知乎:{" "}
-              <a
-                className="text-blue-300"
-                href="https://www.zhihu.com/people/chao-neng-gui-su"
-                target="_blank"
-                rel="noreferrer"
-              >
-                @西伯利亚大恶龙
-              </a>
-            </li>
+            {/* No personal website, Google Scholar, or 知乎 */}
           </ul>
         )
       }

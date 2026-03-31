@@ -1,0 +1,252 @@
+/* ================================
+   Global mobile responsiveness
+   ================================ */
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Utility helpers */
+.desktop-only {
+  display: block;
+}
+
+.mobile-only {
+  display: none;
+}
+
+/* Shared app/window behavior */
+.app-window,
+.window-frame,
+.window-content {
+  min-width: 0;
+}
+
+/* Launchpad shared hooks */
+.launchpad-shell {
+  width: 100%;
+  min-height: 100%;
+}
+
+.launchpad-search {
+  width: 18rem;
+  max-width: calc(100% - 2rem);
+}
+
+.launchpad-grid {
+  margin-inline: auto;
+}
+
+.launchpad-item {
+  width: 6rem;
+}
+
+.launchpad-icon-wrap {
+  width: 5rem;
+  height: 5rem;
+}
+
+.launchpad-icon {
+  width: 4rem;
+  height: 4rem;
+  object-fit: contain;
+}
+
+.launchpad-label {
+  width: 5.75rem;
+  text-align: center;
+  word-break: break-word;
+}
+
+/* Generic content helpers */
+.mobile-stack {
+  display: flex;
+  flex-direction: row;
+}
+
+.mobile-full {
+  width: auto;
+  max-width: none;
+}
+
+.mobile-scroll {
+  overflow: visible;
+}
+
+/* ================================
+   Tablet and below
+   ================================ */
+@media (max-width: 1024px) {
+  .launchpad-grid {
+    gap: 2rem 1.75rem !important;
+  }
+}
+
+/* ================================
+   Mobile
+   ================================ */
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none !important;
+  }
+
+  .mobile-only {
+    display: block !important;
+  }
+
+  .mobile-stack {
+    flex-direction: column !important;
+  }
+
+  .mobile-full {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .mobile-scroll {
+    overflow: auto !important;
+  }
+
+  /* Window/app containers */
+  .app-window,
+  .window-frame,
+  .window-content {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 100vw !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    min-height: 100vh !important;
+    inset: 0 !important;
+    border-radius: 0 !important;
+    transform: none !important;
+  }
+
+  /* Shared spacing */
+  .mobile-px {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .mobile-py {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+
+  .mobile-text-sm {
+    font-size: 0.875rem !important;
+    line-height: 1.25rem !important;
+  }
+
+  .mobile-text-xs {
+    font-size: 0.75rem !important;
+    line-height: 1rem !important;
+  }
+
+  /* Launchpad */
+  .launchpad-shell {
+    padding-top: 4.5rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  .launchpad-search {
+    width: calc(100% - 2rem) !important;
+    max-width: 22rem !important;
+  }
+
+  .launchpad-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 1.75rem 1rem !important;
+    width: 100% !important;
+    max-width: 24rem !important;
+    justify-items: center !important;
+  }
+
+  .launchpad-item {
+    width: 5.5rem !important;
+  }
+
+  .launchpad-icon-wrap {
+    width: 4.5rem !important;
+    height: 4.5rem !important;
+  }
+
+  .launchpad-icon {
+    width: 3.5rem !important;
+    height: 3.5rem !important;
+  }
+
+  .launchpad-label {
+    width: 5rem !important;
+    font-size: 0.75rem !important;
+    line-height: 1rem !important;
+  }
+
+  /* Safer text/layout behavior */
+  h1,
+  h2,
+  h3,
+  p,
+  span,
+  a,
+  li {
+    overflow-wrap: anywhere;
+  }
+}
+
+/* ================================
+   Small mobile
+   ================================ */
+@media (max-width: 480px) {
+  .launchpad-shell {
+    padding-top: 5rem !important;
+  }
+
+  .launchpad-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1.5rem 1rem !important;
+    max-width: 15rem !important;
+  }
+
+  .launchpad-item {
+    width: 5rem !important;
+  }
+
+  .launchpad-icon-wrap {
+    width: 4rem !important;
+    height: 4rem !important;
+  }
+
+  .launchpad-icon {
+    width: 3.25rem !important;
+    height: 3.25rem !important;
+  }
+
+  .launchpad-label {
+    width: 4.75rem !important;
+    font-size: 0.7rem !important;
+    line-height: 0.95rem !important;
+  }
+
+  .launchpad-search {
+    width: calc(100% - 1.25rem) !important;
+  }
+}
