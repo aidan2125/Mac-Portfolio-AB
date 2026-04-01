@@ -1,128 +1,158 @@
-.bear .markdown a {
-  @apply text-red-500 dark:text-red-400;
+.apple-notes-markdown {
+  color: #3c3c43;
+  font-size: 15px;
+  line-height: 1.75;
 }
 
-.bear .markdown h1,
-.bear .markdown h2,
-.bear .markdown h3,
-.bear .markdown h4 {
-  @apply font-bold relative text-c-800;
+.apple-notes-markdown a {
+  color: #007aff;
+  text-decoration: none;
 }
 
-.bear .markdown h1,
-.bear .markdown h2,
-.bear .markdown h3,
-.bear .markdown h4 {
-  @apply mt-7;
+.apple-notes-markdown a:hover {
+  text-decoration: underline;
 }
 
-.bear .markdown h1::before,
-.bear .markdown h2::before,
-.bear .markdown h3::before,
-.bear .markdown h4::before {
-  @apply absolute text-sm text-c-400 -left-7 bottom-1;
+.apple-notes-markdown h1,
+.apple-notes-markdown h2,
+.apple-notes-markdown h3,
+.apple-notes-markdown h4 {
+  position: relative;
+  font-weight: 700;
+  color: #1c1c1e;
+  letter-spacing: -0.02em;
 }
 
-.bear .markdown h1 {
-  @apply text-3xl;
+.apple-notes-markdown h1 {
+  margin: 26px 0 10px;
+  font-size: 22px;
 }
 
-.bear .markdown h1::before {
-  content: "H1";
+.apple-notes-markdown h2 {
+  margin: 22px 0 10px;
+  font-size: 18px;
 }
 
-.bear .markdown h2 {
-  @apply text-2xl;
+.apple-notes-markdown h3 {
+  margin: 18px 0 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #3c3c43;
 }
 
-.bear .markdown h2::before {
-  content: "H2";
+.apple-notes-markdown h4 {
+  margin: 16px 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #3c3c43;
 }
 
-.bear .markdown h3 {
-  @apply text-xl;
+.apple-notes-markdown p {
+  margin: 0 0 14px;
 }
 
-.bear .markdown h3::before {
-  content: "H3";
+.apple-notes-markdown h2 + p,
+.apple-notes-markdown h3 + p,
+.apple-notes-markdown h4 + p {
+  margin-top: 0;
 }
 
-.bear .markdown h3 {
-  @apply text-xl;
+.apple-notes-markdown ul,
+.apple-notes-markdown ol {
+  margin: 0 0 14px;
+  padding-left: 20px;
 }
 
-.bear .markdown h4 {
-  @apply text-lg;
+.apple-notes-markdown ul {
+  list-style: disc;
 }
 
-.bear .markdown h4::before {
-  content: "H4";
+.apple-notes-markdown ol {
+  list-style: decimal;
 }
 
-.bear .markdown p {
-  @apply mt-6;
+.apple-notes-markdown li {
+  margin-bottom: 5px;
 }
 
-.bear .markdown h2 + p,
-.bear .markdown h3 + p,
-.bear .markdown h4 + p {
-  @apply mt-4;
+.apple-notes-markdown li p {
+  margin: 0 0 6px;
 }
 
-.bear .markdown ul,
-.bear .markdown ol {
-  @apply mt-2 pl-5;
+.apple-notes-markdown code {
+  background: #f0ede6;
+  color: #5c5c5e;
+  font-size: 13px;
+  font-family: "SF Mono", "Fira Code", monospace;
+  border-radius: 4px;
+  padding: 2px 6px;
 }
 
-.bear .markdown ul {
-  @apply list-disc;
+.apple-notes-markdown pre {
+  margin: 16px 0;
+  font-size: 13px;
+  line-height: 1.6;
 }
 
-.bear .markdown ul > li::marker {
-  @apply text-red-500 dark:text-red-400;
+.apple-notes-markdown pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
 }
 
-.bear .markdown ol {
-  @apply list-decimal;
+.apple-notes-markdown pre div {
+  border: 1px solid #e8e5dd;
+  border-radius: 10px;
+  background: #f5f4ef;
 }
 
-.bear .markdown li p {
-  @apply m-0 mb-2;
+.apple-notes-markdown .token {
+  background: transparent !important;
 }
 
-.bear .markdown code {
-  @apply text-sm border border-c-300 rounded py-0.5 px-1 bg-c-50;
+.apple-notes-markdown blockquote {
+  margin: 16px 0;
+  padding: 8px 16px;
+  border-left: 3px solid #ffd60a;
+  border-radius: 0 6px 6px 0;
+  background: rgba(255, 214, 10, 0.06);
+  color: #6c6c70;
 }
 
-.bear .markdown pre {
-  @apply mt-2 text-sm;
+.apple-notes-markdown img {
+  display: inline-block;
+  max-width: 100%;
+  margin: 12px 0;
+  border-radius: 8px;
 }
 
-.bear .markdown pre code {
-  @apply text-sm bg-transparent border-none p-0;
+.apple-notes-markdown table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  margin: 0 0 16px;
+  border-collapse: collapse;
+  font-size: 14px;
 }
 
-.bear .markdown pre div {
-  @apply border border-c-300 rounded;
+.apple-notes-markdown th {
+  background: #f5f4ef;
+  font-weight: 600;
 }
 
-.bear .markdown .token {
-	background: transparent !important;
+.apple-notes-markdown th,
+.apple-notes-markdown td {
+  padding: 8px 12px;
+  border: 1px solid #e8e5dd;
+  text-align: left;
 }
 
-.bear .markdown img {
-  @apply inline-block;
+.apple-notes-markdown tr:nth-child(even) td {
+  background: #faf9f4;
 }
 
-.bear .markdown table {
-  @apply mt-4 block w-full overflow-auto;
-}
-
-.bear .markdown table td,
-.bear .markdown table th {
-  @apply px-3 py-2 border border-c-300;
-}
-
-.bear .markdown table tr {
-  @apply border-t border-gray-300 bg-transparent;
+.apple-notes-markdown hr {
+  border: none;
+  border-top: 1px solid #e8e5dd;
+  margin: 24px 0;
 }

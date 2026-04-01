@@ -11,31 +11,31 @@ const launchpadApps: LaunchpadData[] = [
     id: "chemcrete",
     title: "Chemcrete",
     img: "/img/icons/launchpad/Chemcrete Logos.webp",
-    link: "#"
+    link: "https://chemcretev1.netlify.app/"
   },
   {
     id: "unexpected",
     title: "Unexpected",
-    img: "/img/icons/launchpad/unexpected.png",
-    link: "#"
+    img: "/img/icons/launchpad/image4.jpeg",
+    link: "https://unexpectedoppourtunities.netlify.app/"
   },
   {
     id: "linkedin",
     title: "LinkedIn",
-    img: "/img/icons/launchpad/linkedin.png",
-    link: "https://linkedin.com/in/your-profile"
+    img: "/img/icons/linkedIn.svg",
+    link: "https://www.linkedin.com/in/aidan-botha-68399a191/"
   },
   {
     id: "resume",
     title: "Resume",
-    img: "/img/icons/launchpad/resume.png",
-    link: "/resume.pdf"
+    img: "/img/icons/launchpad/cv.png",
+    link: "/docs/Aidan Botha CV 2025.pdf"
   },
   {
     id: "contact",
     title: "Contact",
-    img: "/img/icons/launchpad/contact.png",
-    link: "mailto:your@email.com"
+    img: "/img/icons/communication.png",
+    link: "aidanbotha15@gmail.com"
   }
 ];
 

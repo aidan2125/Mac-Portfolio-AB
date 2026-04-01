@@ -4,7 +4,7 @@ const bear: BearData[] = [
   {
     id: "profile",
     title: "Profile",
-    icon: "i-fa-solid:paw",
+    icon: "",
     md: [
       {
         id: "about-me",
@@ -15,47 +15,39 @@ const bear: BearData[] = [
           "I'm a motivated and adaptable individual with a growing passion for technology and problem solving..."
       }
     ]
-  },
-  {
-    id: "project",
-    title: "Projects",
-    icon: "i-octicon:repo",
-    md: [
-      {
-        id: "travique",
-        title: "Travique Travel Assistant",
-        file: "markdown/travique.md",
-        icon: "i-bx:map-alt",
-        excerpt: "A smart travel planner using Node.js, Supabase, and Google Maps API...",
-        link: "https://travique.netlify.app/"
-      },
-      {
-        id: "portfolio",
-        title: "Portfolio",
-        file: "markdown/portfolio.md",
-        icon: "i-octicon:browser",
-        excerpt: "Portfolio built on the React + Vite framework...",
-        link: "https://jacobdaniels.netlify.app/projects/"
-      },
-      {
-        id: "resource-hub",
-        title: "Resource Hub",
-        file: "markdown/resource-hub.md",
-        icon: "i-bx:book-open",
-        excerpt: "A resource hub web app built with React, HTML, JavaScript and CSS...",
-        link: "https://paul455565.github.io/TheFiveGuys/"
-      },
-      {
-        id: "capaciti-portal",
-        title: "Capaciti Placement Portal",
-        file: "markdown/capaciti-portal.md",
-        icon: "i-bx:briefcase",
-        excerpt:
-          "A web-based recruitment and placement system to match graduates with suitable employers...",
-        link: "https://capacitiplacementportal.netlify.app/"
-      }
-    ]
   }
+
+  // {
+  //   id: "project",
+  //   title: "Projects",
+  //   icon: "i-octicon:repo",
+  //   md: [
+  //     {
+  //       id: "travique",
+  //       title: "Travique Travel Assistant",
+  //       file: "markdown/travique.md",
+  //       icon: "i-bx:map-alt",
+  //       excerpt: "A smart travel planner using Node.js, Supabase, and Google Maps API...",
+  //       link: "https://travique.netlify.app/"
+  //     },
+  //     {
+  //       id: "portfolio",
+  //       title: "Portfolio",
+  //       file: "markdown/portfolio.md",
+  //       icon: "i-octicon:browser",
+  //       excerpt: "Portfolio built on the React + Vite framework...",
+  //       link: "https://jacobdaniels.netlify.app/projects/"
+  //     },
+  //     {
+  //       id: "resource-hub",
+  //       title: "Resource Hub",
+  //       file: "markdown/resource-hub.md",
+  //       icon: "i-bx:book-open",
+  //       excerpt: "A resource hub web app built with React, HTML, JavaScript and CSS...",
+  //       link: "https://paul455565.github.io/TheFiveGuys/"
+  //     }
+  //   ]
+  // }
 ];
 
 export default bear;

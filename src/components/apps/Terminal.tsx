@@ -32,6 +32,7 @@ export default class Terminal extends React.Component<{}, TerminalState> {
   private history: string[] = [];
   private curHistory = 0;
   private curInputTimes = 0;
+  private rowKey = 0;
 
   private commands: Record<string, (arg?: string) => void>;
 
@@ -298,7 +299,9 @@ export default class Terminal extends React.Component<{}, TerminalState> {
   clear = () => {
     this.curInputTimes += 1;
     this.reset();
-    this.setState({ content: [] });
+    this.setState({ content: [] }, () => {
+      this.generateInputRow(this.curInputTimes);
+    });
   };
 
   autoComplete = (text: string) => {
@@ -365,8 +368,9 @@ export default class Terminal extends React.Component<{}, TerminalState> {
   };
 
   generateInputRow = (id: number) => {
+    const nextRowKey = this.rowKey++;
     const newRow = (
-      <div key={`terminal-input-row-${id}`} className="flex">
+      <div key={`terminal-input-row-${nextRowKey}`} className="flex">
         <div className="flex w-max items-center space-x-1.5">
           <span className="text-yellow-200">
             aidan@portfolio <span className="text-green-300">{this.getPromptName()}</span>
@@ -386,8 +390,9 @@ export default class Terminal extends React.Component<{}, TerminalState> {
   };
 
   generateResultRow = (id: number, result: JSX.Element) => {
+    const nextRowKey = this.rowKey++;
     const newRow = (
-      <div key={`terminal-result-row-${id}`} className="break-all">
+      <div key={`terminal-result-row-${nextRowKey}`} className="break-all">
         {result}
       </div>
     );

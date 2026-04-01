@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { apps, wallpapers } from "~/configs";
 import { minMarginY } from "~/utils";
-import type { MacActions } from "~/types";
+import type { MacActions, AppsData } from "~/types";
+import IOSHomeScreen from "./iOSHomeScreen";
+import { useWindowSize } from "~/hooks/useWindowSize";
+import { useStore } from "~/stores";
 
 interface DesktopState {
   showApps: {
@@ -234,6 +237,109 @@ export default function Desktop(props: MacActions) {
       }
     });
   };
+
+  const { winWidth } = useWindowSize();
+  const isMobile = winWidth < 768;
+
+  if (isMobile) {
+    const handleAppClick = (app: AppsData) => {
+      if (app.link) {
+        window.open(app.link, "_blank");
+        return;
+      }
+
+      if (app.id === "launchpad") {
+        setState((prev) => ({ ...prev, showLaunchpad: true }));
+        return;
+      }
+
+      if (app.desktop || app.content) {
+        setState((prev) => ({ ...prev, showApps: { ...prev.showApps, [app.id]: true } }));
+      }
+    };
+
+    const openAppId = Object.keys(state.showApps).find((id) => state.showApps[id]);
+
+    if (state.showLaunchpad) {
+      return (
+        <div style={{ position: "fixed", inset: 0, background: "#000" }}>
+          <button
+            onClick={() => setState((prev) => ({ ...prev, showLaunchpad: false }))}
+            style={{
+              position: "absolute",
+              top: 20,
+              left: 20,
+              zIndex: 10,
+              background: "rgba(255,255,255,0.2)",
+              border: "none",
+              borderRadius: "50%",
+              width: 40,
+              height: 40,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "#fff",
+              fontSize: 18,
+              cursor: "pointer"
+            }}
+          >
+            ←
+          </button>
+          <Launchpad
+            show={true}
+            toggleLaunchpad={(t) => setState((prev) => ({ ...prev, showLaunchpad: t }))}
+          />
+        </div>
+      );
+    }
+
+    if (openAppId) {
+      const app = apps.find((a) => a.id === openAppId);
+      return (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            background: "#000"
+          }}
+        >
+          <button
+            onClick={() =>
+              setState((prev) => ({
+                ...prev,
+                showApps: { ...prev.showApps, [openAppId]: false }
+              }))
+            }
+            style={{
+              position: "absolute",
+              top: 20,
+              left: 20,
+              zIndex: 10,
+              background: "rgba(255,255,255,0.2)",
+              border: "none",
+              borderRadius: "50%",
+              width: 40,
+              height: 40,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "#fff",
+              fontSize: 18,
+              cursor: "pointer"
+            }}
+          >
+            ←
+          </button>
+          <div style={{ width: "100%", height: "100%" }}>{app?.content}</div>
+        </div>
+      );
+    }
+
+    return <IOSHomeScreen onAppClick={handleAppClick} />;
+  }
 
   return (
     <div

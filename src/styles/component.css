@@ -48,6 +48,19 @@
   @apply block;
 }
 
+/* iOS Home Screen */
+.ios-home-screen {
+  position: fixed !important;
+  inset: 0 !important;
+  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif !important;
+  overflow: hidden !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
 /* --------- dock --------- */
 
 .dock ul {

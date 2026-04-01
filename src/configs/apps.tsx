@@ -1,22 +1,24 @@
 import { appBarHeight } from "~/utils";
 import type { AppsData } from "~/types";
+import Bear from "~/components/apps/Bear";
+import LinkedIn from "~/components/apps/LinkedIn";
+import Safari from "~/components/apps/Safari";
+import VSCode from "~/components/apps/VSCode";
+import FaceTime from "~/components/apps/FaceTime";
+import Terminal from "~/components/apps/Terminal";
 
 const apps: AppsData[] = [
   {
     id: "launchpad",
-    title: "Launchpad",
+    title: "Files",
     desktop: false,
-    img: "img/icons/launchpad.png"
+    img: "/img/icons/folder.png"
   },
   {
-    id: "bear",
-    title: "Notebook",
+    id: "Notes",
+    title: "Notes",
     desktop: true,
-    width: 860,
-    height: 500,
-    show: true,
-    y: -40,
-    img: "img/icons/bear.png",
+    img: "/img/icons/notes.svg",
     content: <Bear />
   },
   {
@@ -24,7 +26,8 @@ const apps: AppsData[] = [
     title: "LinkedIn",
     desktop: true,
     img: "img/icons/linkedin.png",
-    content: <LinkedIn />
+    content: <LinkedIn />,
+    link: "https://www.linkedin.com/in/aidan-botha-68399a191/"
   },
   {
     id: "safari",
@@ -35,7 +38,8 @@ const apps: AppsData[] = [
     minHeight: 200,
     x: -20,
     img: "img/icons/safari.png",
-    content: <Safari />
+    content: <Safari />,
+    link: "https://www.google.com"
   },
   {
     id: "vscode",
@@ -46,7 +50,8 @@ const apps: AppsData[] = [
     x: 80,
     y: -30,
     img: "img/icons/vscode.png",
-    content: <VSCode />
+    content: <VSCode />,
+    link: "https://code.visualstudio.com"
   },
   {
     id: "facetime",
@@ -66,14 +71,14 @@ const apps: AppsData[] = [
     id: "terminal",
     title: "Terminal",
     desktop: true,
-    img: "img/icons/terminal.png",
+    img: "/img/icons/terminal.png",
     content: <Terminal />
   },
   {
     id: "github",
     title: "Github",
     desktop: false,
-    img: "public/img/icons/github (copy).png",
+    img: "/img/icons/github1.png",
     link: "https://github.com/aidan2125"
   }
 ];

@@ -2,12 +2,12 @@ import type { WebsitesData } from "~/types";
 
 const websites: WebsitesData = {
   favorites: {
-    title: "SNS Links",
+    title: "Links",
     sites: [
       {
         id: "my-github",
         title: "Github",
-        img: "img/sites/github.svg",
+        img: "/img/icons/github.svg",
         link: "https://github.com/aidan2125"
       },
       {
@@ -31,27 +31,28 @@ const websites: WebsitesData = {
       }
     ]
   },
+
   freq: {
     title: "Frequently Visited",
     sites: [
-      {
-        id: "github",
-        title: "Github",
-        img: "img/sites/github.svg",
-        link: "https://github.com/"
-      },
-      {
-        id: "leetcode",
-        title: "LeetCode",
-        img: "img/sites/leetcode.svg",
-        link: "https://leetcode.com/"
-      },
-      {
-        id: "steam",
-        title: "Steam",
-        img: "img/sites/steam.svg",
-        link: "https://store.steampowered.com/"
-      }
+      // {
+      //   id: "github",
+      //   title: "Github",
+      //   img: "img/sites/github.svg",
+      //   link: "https://github.com/"
+      // },
+      // {
+      //   id: "leetcode",
+      //   title: "LeetCode",
+      //   img: "img/sites/leetcode.svg",
+      //   link: "https://leetcode.com/"
+      // },
+      // {
+      //   id: "steam",
+      //   title: "Steam",
+      //   img: "img/sites/steam.svg",
+      //   link: "https://store.steampowered.com/"
+      // }
     ]
   }
 };
