@@ -42,18 +42,6 @@ const apps: AppsData[] = [
     link: "https://www.google.com"
   },
   {
-    id: "vscode",
-    title: "VSCode",
-    desktop: true,
-    width: 900,
-    height: 600,
-    x: 80,
-    y: -30,
-    img: "img/icons/vscode.png",
-    content: <VSCode />,
-    link: "https://code.visualstudio.com"
-  },
-  {
     id: "facetime",
     title: "FaceTime",
     desktop: true,
