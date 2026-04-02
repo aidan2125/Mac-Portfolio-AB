@@ -17,7 +17,7 @@ const launchpadApps: LaunchpadData[] = [
     id: "unexpected",
     title: "Unexpected",
     img: "/img/icons/launchpad/image4.jpeg",
-    link: "https://unexpectedoppourtunities.netlify.app/"
+    link: "https://unexpectedopportunities.netlify.app"
   },
   {
     id: "linkedin",
